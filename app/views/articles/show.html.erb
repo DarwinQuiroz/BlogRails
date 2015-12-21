@@ -1,6 +1,26 @@
 <h1><%= @article.title %></h1>
+<% unless @article.user.nil? %>
+	<p>
+		Escrito por <%= @article.user.email %>
+	</p>
+<% end -%>
+<p>
+	Visitas <%= @article.visits_count %>
+</p>
 <div>
 	<%= @article.body %>
+</div>
+<div class="field">
+	<h3>Comentarios</h3>
+	<%= render "Comments/form" %>
+	<ul>
+		<% @article.comments.each do |comment| %>
+			<li>
+				<%= comment.body %> - <%= comment.user.email %>
+			</li>
+		<% end -%>
+	</ul>
+	<ul id="comments-box"></ul>
 </div>
 <div>
 	<%= link_to "Editar", edit_article_path(@article) %>

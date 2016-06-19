@@ -4,11 +4,19 @@
 		Escrito por <%= @article.user.email %>
 	</p>
 <% end -%>
+<div class="field">
+	<% @article.categories.each do |category| %>
+		<%= link_to category.name, category, style:"color:#{category.color};" %>
+	<% end %>
+</div>
+<div class="field">
+	<%= image_tag @article.cover.url() %>
+</div>
 <p>
 	Visitas <%= @article.visits_count %>
 </p>
 <div>
-	<%= @article.body %>
+	<%= Sanitize.fragment(@article.body, Sanitize::config::RELAXED).html_safe %>
 </div>
 <div class="field">
 	<h3>Comentarios</h3>
